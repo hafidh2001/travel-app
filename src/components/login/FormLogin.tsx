@@ -2,14 +2,14 @@ import { FC, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { configs } from "src/base/global/global";
+import { getUserById } from "src/utils/ws";
+import { IUserById } from "src/base/global/interface";
 
 // components
 import { Form, Row, Col } from "antd";
 import { TextField, PasswordField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 import { IconLoading } from "src/components/ui/Icon";
-import { getUserById } from "../../utils/ws";
-import { IUserById } from "../../base/global/interface";
 
 export const FormLogin: FC<{
   setTab: (e: string) => void;

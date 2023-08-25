@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { configs } from "src/base/global/global";
+import { getUserById } from "src/utils/ws";
+import { IUserById } from "src/base/global/interface";
 
 // components
 import { Form, Row, Col } from "antd";
@@ -52,14 +54,21 @@ export const FormRegister: FC<{
           password: f.password,
           password_confirmation: f.password_confirmation,
         })
-        .then((res: any) => {
+        .then(async (res: any) => {
           if (!!res) {
             const { id, email, name } = res.data.data.user;
+            const token = res.data.data.token;
+            // get user by id
+            const userById = (await getUserById(id, token)) as IUserById;
+            const role = !!userById ? userById.roles[0].name : "";
+
+            // save to storage
             const credential = btoa(
               JSON.stringify({
                 id,
                 email,
                 name,
+                role,
                 token: res.data.data.token,
               })
             );

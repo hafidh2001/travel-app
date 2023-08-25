@@ -9,7 +9,7 @@ import { TextField, PasswordField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 import { IconLoading } from "src/components/ui/Icon";
 
-export const FormLogin: FC<{
+export const FormRegister: FC<{
   setTab: (e: string) => void;
 }> = ({ setTab }) => {
   const [form] = useForm();
@@ -18,11 +18,12 @@ export const FormLogin: FC<{
   };
   const initialValues = {
     email: "",
+    name: "",
     password: "",
+    password_confirmation: "",
   } as { [key: string]: string | [] | {} };
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorLogin, setErrorLogin] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,18 +38,19 @@ export const FormLogin: FC<{
     // re-assign value form
   };
 
-  const onLogin = async () => {
+  const onRegister = async () => {
     try {
       if (!!loading) return;
       setLoading(true);
-      setErrorLogin(false);
 
       const f = form.getFieldsValue();
 
       await axios
-        .post(`${configs.url_backend}/api/login`, {
+        .post(`${configs.url_backend}/api/register`, {
           email: f.email,
+          name: f.name,
           password: f.password,
+          password_confirmation: f.password_confirmation,
         })
         .then((res: any) => {
           if (!!res) {
@@ -70,7 +72,6 @@ export const FormLogin: FC<{
           }
         });
     } catch {
-      setErrorLogin(true);
       setLoading(false);
     }
   };
@@ -88,14 +89,9 @@ export const FormLogin: FC<{
             Travel App
           </span>
         </div>
-        {!!errorLogin && (
-          <p className="mt-5 -mb-4 text-red-700 font-bold">
-            wrong email or password
-          </p>
-        )}
         <div className="mt-5">
           <Form
-            onFinish={onLogin}
+            onFinish={onRegister}
             form={form}
             layout="vertical"
             initialValues={initialValues}
@@ -118,34 +114,42 @@ export const FormLogin: FC<{
                   <TextField placeholder={"email"} />
                 </Form.Item>
                 <Form.Item
+                  label={"Name"}
+                  name={"name"}
+                  rules={[{ required: true }]}
+                >
+                  <TextField placeholder={"name"} />
+                </Form.Item>
+                <Form.Item
                   label={"Password"}
                   name={"password"}
                   rules={[{ required: true }]}
                 >
                   <PasswordField placeholder={"password"} />
                 </Form.Item>
+                <Form.Item
+                  label={"Password Confirmation"}
+                  name={"password_confirmation"}
+                  rules={[
+                    { required: true },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The password that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <PasswordField placeholder={"password confirmation"} />
+                </Form.Item>
               </Col>
             </Row>
-
-            <div className="mt-4 mx-1 flex justify-between items-start">
-              <div className="flex items-start md:items-center">
-                <input
-                  id="remember"
-                  aria-describedby="remember"
-                  type="checkbox"
-                  className="mt-1 md:mt-0 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                />
-                <label className="ml-3 text-gray-500 text-sm">
-                  Remember me
-                </label>
-              </div>
-              <a
-                href="#"
-                className="text-end cursor-pointer text-sm font-medium text-primary-600 hover:underline"
-              >
-                Forgot password?
-              </a>
-            </div>
 
             <button
               onClick={(e) => {
@@ -157,7 +161,7 @@ export const FormLogin: FC<{
               }`}
               disabled={loading}
             >
-              <span className="text-white font-semibold">Sign in</span>
+              <span className="text-white font-semibold">Sign up</span>
               {!!loading && (
                 <IconLoading className="w-4 h-4 animate-spin text-white fill-gray-700" />
               )}
@@ -166,11 +170,11 @@ export const FormLogin: FC<{
             <p
               className="mt-4 text-xs text-gray-500 text-center cursor-pointer outline-none group hover:underline"
               onClick={() => {
-                setTab("register");
+                setTab("login");
               }}
             >
-              Don't have an account yet?{" "}
-              <span className="group-hover:text-blue-600">Sign up</span>
+              Already have an account?{" "}
+              <span className="group-hover:text-blue-600">Sign in</span>
             </p>
           </Form>
         </div>

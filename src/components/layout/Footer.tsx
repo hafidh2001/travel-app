@@ -2,18 +2,15 @@ import { FC } from "react";
 
 // components
 
-export const FooterDesktop: FC<{}> = ({}) => {
+export const Footer: FC<{}> = ({}) => {
   return (
-    <div className="py-7 px-x-desktop flex items-center justify-between bg-white dark:bg-black dark:duration-300">
-      <p>footer desktop</p>
-    </div>
-  );
-};
-
-export const FooterMobile: FC<{}> = ({}) => {
-  return (
-    <div className="py-7 px-x-mobile flex flex-col justify-start space-y-4 bg-white dark:bg-black dark:duration-300">
-      <p>footer mobile</p>
+    <div
+      className="py-3 flex justify-center items-center bg-gray-400 box-border
+     overflow-hidden"
+    >
+      <p className="text-sm text-gray-50">
+        &copy; 2023 Travel App. All Right Reserved.
+      </p>
     </div>
   );
 };

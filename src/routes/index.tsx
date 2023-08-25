@@ -8,18 +8,21 @@ const Blank = lazy(() => import("src/base/layout/Blank"));
 
 // page
 const Dev = lazy(() => import("src/base/page/Dev"));
-const Home = lazy(() => import("src/base/page/Home"));
 const Login = lazy(() => import("src/base/page/Login"));
+
+const Home = lazy(() => import("src/base/page/Home"));
+const Destination = lazy(() => import("src/base/page/Destination"));
 
 // page superadmin
 const IndexSuperAdmin = lazy(() => import("src/base/page/superadmin/Index"));
-// const EditExample = lazy(() => import("src/base/page/example/EditExample"));
-// const ShowExample = lazy(() => import("src/base/page/example/ShowExample"));
 
 const routes = [
   {
     layout: <Default />,
-    pages: [{ path: "/", element: <Home /> }],
+    pages: [
+      { path: "/", element: <Home /> },
+      { path: "/destination", element: <Destination /> },
+    ],
   },
   {
     layout: <SuperAdmin />,

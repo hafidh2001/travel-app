@@ -23,16 +23,32 @@ const response = (
     }
 };
 
+export const logoutUser = async () => {
+    await axios
+        .post(`${configs.url_backend}/api/logout`, {
+            headers: {
+                Authorization: `Bearer ${(window as any).user.token}`,
+            },
+        })
+        .then((res) => {
+            if (!!res) {
+                localStorage.removeItem(configs.storage_user);
+                (window as any).user = {};
+
+                setTimeout(() => {
+                    window.location.href = `${window.location.origin}/login`;
+                }, 100);
+            }
+        });
+};
+
 export const getUserById = (user_id: number, token: string) => {
     return new Promise(async (resolve, reject) => {
-        const res = await axios.get(
-            `${configs.url_backend}/api/user/${user_id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
-        response(res, resolve, reject)
+        const res = await axios.get(`${configs.url_backend}/api/user/${user_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        response(res, resolve, reject);
     });
 };

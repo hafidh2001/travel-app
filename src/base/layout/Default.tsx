@@ -9,6 +9,8 @@ import {
   useSizeWindow,
 } from "src/base/global/global";
 import { Skeleton } from "antd";
+import { NavDesktop, NavMobile } from "src/components/layout/Nav";
+import { Footer } from "src/components/layout/Footer";
 
 const Default = () => {
   const [loading, setLoading] = useState(false);
@@ -83,6 +85,7 @@ const Default = () => {
 
   return (
     <div className={`w-full flex flex-col overflow-x-clip`}>
+      {globalLayout.width < 768 ? <NavMobile /> : <NavDesktop />}
       <div
         className="w-full min-h-screen"
         onClick={(e) => {
@@ -91,6 +94,7 @@ const Default = () => {
       >
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

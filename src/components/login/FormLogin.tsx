@@ -7,7 +7,6 @@ import { configs } from "src/base/global/global";
 import { Form, Row, Col } from "antd";
 import { TextField, PasswordField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
-
 import { IconLoading } from "src/components/ui/Icon";
 
 export const FormLogin: FC<{}> = () => {
@@ -16,7 +15,7 @@ export const FormLogin: FC<{}> = () => {
     required: "${label} wajib diisi",
   };
   const initialValues = {
-    username: "",
+    email: "",
     password: "",
   } as { [key: string]: string | [] | {} };
 
@@ -45,31 +44,26 @@ export const FormLogin: FC<{}> = () => {
       const f = form.getFieldsValue();
 
       await axios
-        .post(`${configs.url_backend}/api/users/login`, {
-          username: f.username,
+        .post(`${configs.url_backend}/api/login`, {
+          email: f.email,
           password: f.password,
         })
         .then((res: any) => {
           if (!!res) {
-            const user = res.data.data.user;
-            const user_auth = res.data.data;
-            // set local-storage
-            localStorage.setItem(
-              configs.storage_user,
-              btoa(
-                JSON.stringify({
-                  user_id: user.id,
-                  email: user.email,
-                  username: user.username,
-                  role: user.role,
-                  auth: {
-                    access_token: user_auth.access_token,
-                    token_type: user_auth.token_type,
-                  },
-                })
-              )
+            const { id, email, name } = res.data.data.user;
+            const credential = btoa(
+              JSON.stringify({
+                id,
+                email,
+                name,
+                token: res.data.data.token,
+              })
             );
-            window.location.href = `${window.location.origin}/competence`;
+
+            if (typeof Storage !== "undefined")
+              localStorage.setItem(configs.storage_user, credential);
+
+            window.location.href = "/";
             setLoadingLogin(false);
           }
         });
@@ -94,7 +88,7 @@ export const FormLogin: FC<{}> = () => {
         </div>
         {!!errorLogin && (
           <p className="mt-5 -mb-4 text-red-700 font-bold">
-            wrong username or password
+            wrong email or password
           </p>
         )}
         <div className="mt-5">
@@ -108,11 +102,18 @@ export const FormLogin: FC<{}> = () => {
             <Row className="-mx-2">
               <Col span={24} className="px-2">
                 <Form.Item
-                  label={"Username"}
-                  name={"username"}
-                  rules={[{ required: true }]}
+                  label={"Email"}
+                  name={"email"}
+                  rules={[
+                    { required: true },
+                    {
+                      type: "email",
+                      pattern: /^\S+@\S+\.\S+$/,
+                      message: "format : youremail@example.com",
+                    },
+                  ]}
                 >
-                  <TextField placeholder={"username"} />
+                  <TextField placeholder={"email"} />
                 </Form.Item>
                 <Form.Item
                   label={"Password"}

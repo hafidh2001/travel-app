@@ -3,18 +3,11 @@ export { };
 
 declare global {
     interface Window {
-        subnav: [];
-        subsubnav: [];
         user: {
-            user_id: number;
+            id: number;
             email: string;
-            username: string;
-            role: "administrator" | "user";
-            is_active: string;
-            auth: {
-                access_token: string;
-                token_type: string;
-            };
+            name: string;
+            token: string;
         };
     }
 }

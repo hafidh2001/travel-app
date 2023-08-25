@@ -8,6 +8,8 @@ import { Form, Row, Col } from "antd";
 import { TextField, PasswordField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 import { IconLoading } from "src/components/ui/Icon";
+import { getUserById } from "../../utils/ws";
+import { IUserById } from "../../base/global/interface";
 
 export const FormLogin: FC<{
   setTab: (e: string) => void;
@@ -50,14 +52,21 @@ export const FormLogin: FC<{
           email: f.email,
           password: f.password,
         })
-        .then((res: any) => {
+        .then(async (res: any) => {
           if (!!res) {
             const { id, email, name } = res.data.data.user;
+            const token = res.data.data.token;
+            // get user by id
+            const userById = (await getUserById(id, token)) as IUserById;
+            const role = !!userById ? userById.roles[0].name : "";
+
+            // save to storage
             const credential = btoa(
               JSON.stringify({
                 id,
                 email,
                 name,
+                role,
                 token: res.data.data.token,
               })
             );
@@ -65,7 +74,7 @@ export const FormLogin: FC<{
             if (typeof Storage !== "undefined")
               localStorage.setItem(configs.storage_user, credential);
 
-            window.location.href = "/";
+            window.location.href = role === "superadmin" ? "/superadmin" : "/";
             setLoading(false);
           }
         });

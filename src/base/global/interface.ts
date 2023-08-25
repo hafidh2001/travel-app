@@ -13,47 +13,20 @@ export interface INavigation {
     }>;
 }
 
-export interface IBreadcrumb {
-    href: string;
-    value: Array<string>;
-}
-
-export interface ICompetence {
-    competence_name: string;
-    competences_id: number;
+interface IRole {
     created_at: string;
-    date: string;
-    definition: string;
-    levels: string;
-    prompt: string;
-    user_id: number;
-}
-
-export interface IPrompt {
-    prompt_content: string;
-    prompt_id: number;
-    prompt_type: string;
-    created_at: string;
-}
-
-export interface IParticipant {
-    author: string;
-    email_participant: string;
-    participants_id: number;
+    guard_name: string;
+    id: number;
     name: string;
-    position: string;
-    user_id: number;
-    username_participant: string;
+    pivot: any[];
+    updated_at: string;
 }
-
-export interface ISchedule {
-    schedules_id: number;
+export interface IUserById {
     created_at: string;
+    email: string;
+    email_verified_at: string;
+    id: number;
     name: string;
-    date: string;
-    start_time: string;
-    end_time: string;
-    duration: number;
-    competence_name: string;
-    status: string;
+    roles: IRole[];
+    updated_at: string;
 }

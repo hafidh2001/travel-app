@@ -10,7 +10,7 @@ import {
 } from "src/base/global/global";
 import { Skeleton } from "antd";
 
-const Blank = () => {
+const SuperAdmin = () => {
   const [loading, setLoading] = useState(false);
   const { globalLayout, setGlobalLayout } = contexLayout();
 
@@ -24,37 +24,53 @@ const Blank = () => {
   const user = !!storage_user && JSON.parse(atob(storage_user));
   w.user = user;
 
-  if (!!w.user) {
+  if (!w.user) {
     setTimeout(() => {
-      window.location.href = `${window.location.origin}/`;
+      window.location.href = `${window.location.origin}/login?redirect=${window.location.pathname}`;
     }, 100);
     return <></>;
   }
 
-  // tmeplate
+  // template
   // if (!!w.user) {
-  //   if (w.user.role === "superadmin") {
+  //   if (
+  //     w.user.role === "superadmin" &&
+  //     globalLayout.role_superadmin.findIndex(
+  //       (e) => window.location.pathname.search(e) >= 0
+  //     ) < 0
+  //   ) {
   //     setTimeout(() => {
   //       window.location.href = `${window.location.origin}/competence`;
   //     }, 100);
   //     return <></>;
   //   }
 
-  //   if (w.user.role === "administrator") {
+  //   if (
+  //     w.user.role === "administrator" &&
+  //     globalLayout.role_administrator.findIndex(
+  //       (e) => window.location.pathname.search(e) >= 0
+  //     ) < 0
+  //   ) {
   //     setTimeout(() => {
   //       window.location.href = `${window.location.origin}/participant`;
   //     }, 100);
   //     return <></>;
   //   }
 
-  //   if (w.user.role === "user") {
+  //   if (
+  //     w.user.role === "user" &&
+  //     globalLayout.role_user.findIndex(
+  //       (e) => window.location.pathname.search(e) >= 0
+  //     ) < 0 &&
+  //     window.location.pathname !== "/"
+  //   ) {
   //     setTimeout(() => {
   //       window.location.href = `${window.location.origin}/`;
   //     }, 100);
   //     return <></>;
   //   }
   // }
-  // tmeplate
+  // template
 
   if (loading)
     return (
@@ -67,11 +83,17 @@ const Blank = () => {
 
   return (
     <div className={`w-full flex flex-col overflow-x-clip`}>
-      <div className="w-full min-h-screen">
+      <div
+        className="w-full min-h-screen"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <p>SuperAdmin</p>
         <Outlet />
       </div>
     </div>
   );
 };
 
-export default Blank;
+export default SuperAdmin;

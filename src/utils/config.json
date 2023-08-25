@@ -1,0 +1,9 @@
+{
+  "author": "hafidh ahmad fauzan",
+  "formatDate": "DD MMMM YYYY",
+  "formatTime": "HH:mm",
+  "storage_user": "USER",
+  "RECAPTCHA_SITE_KEY_DEV": "6LcSZbgnAAAAABbvLp3lavjDVt-FaLfSpZQL2vP6",
+  "RECAPTCHA_SECRET_KEY_DEV": "6LcSZbgnAAAAAH9ApQHKl0JAik9kBvBmAseh7Qap",
+  "url_backend": "http://103.172.204.86:5101"
+}

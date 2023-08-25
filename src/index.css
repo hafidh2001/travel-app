@@ -1,0 +1,156 @@
+@import "~antd/dist/antd.css";
+@import "~swiper/swiper-bundle.min.css";
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+
+  src: local(""), url("/fonts/Inter-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+
+  src: local(""), url("/fonts/Montserrat-Regular.ttf") format("ttf");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply !font-Inter font-normal text-gray-900;
+  }
+
+  button {
+    @apply outline-none cursor-pointer;
+  }
+}
+
+span.ant-checkbox.css-dev-only-do-not-override-1me4733.ant-checkbox-checked
+  > span,
+span.ant-radio.ant-radio-checked > span {
+  border-color: #eb1b2f !important;
+  background-color: #eb1b2f !important;
+}
+
+.ant-radio-inner::after {
+  background-color: #d9d9d9 !important;
+}
+
+.ant-checkbox-inner,
+.ant-radio-inner {
+  border-color: #d9d9d9 !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+.ant-form-item-label {
+  padding-bottom: 6px !important;
+}
+
+.ant-input {
+  border-radius: 8px !important;
+  padding: 7px 11px !important;
+}
+
+.ant-input-password {
+  border-radius: 8px !important;
+  padding: 7px 11px !important;
+  font-size: 12px;
+  height: 37.6px !important;
+}
+.ant-picker {
+  width: 100%;
+  border-radius: 8px !important;
+  padding: 7px 11px !important;
+  height: 32px;
+  font-size: 12px;
+}
+
+#btn_file {
+  width: 100% !important;
+  border-radius: 8px !important;
+  outline: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.ant-upload-list-picture .ant-upload-list-item,
+.ant-upload-list-picture-card .ant-upload-list-item {
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ant-upload-list-text .ant-upload-list-item-name,
+.ant-upload-list-picture .ant-upload-list-item-name {
+  font-size: 11px;
+}
+
+.ant-upload.ant-upload-select {
+  width: 100% !important;
+}
+
+.ant-input-clear-icon {
+  display: flex;
+}
+
+span.ant-picker-separator {
+  display: flex;
+}
+
+.ant-select-selector {
+  border-radius: 8px !important;
+}
+
+.ant-select-selection-search,
+.ant-select-selection-placeholder,
+.ant-select-selection-item {
+  font-size: 12px !important;
+}
+
+.ant-form-item-explain-error {
+  font-size: 12px;
+}
+
+.ant-input[disabled],
+.ant-select-disabled.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  color: #5f6368 !important;
+  font-size: 12px !important;
+}
+
+.ant-input-affix-wrapper {
+  padding: 0 11px 0 0 !important;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  padding: 0 0 0 11px !important;
+}
+
+.cell-122 {
+  padding-left: 0px !important;
+  padding-right: 4px !important;
+}
+
+.ant-switch {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.ant-switch-checked {
+  background-color: #1890ff !important;
+}
+
+.ant-table-thead > tr > th {
+  font-weight: 600 !important;
+}

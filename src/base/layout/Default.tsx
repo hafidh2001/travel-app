@@ -87,6 +87,10 @@ const Default = () => {
         className="w-full min-h-screen"
         onClick={(e) => {
           e.stopPropagation();
+          setGlobalLayout({
+            ...globalLayout,
+            showMenu: false,
+          });
         }}
       >
         <Outlet />

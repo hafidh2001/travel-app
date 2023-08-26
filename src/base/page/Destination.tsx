@@ -44,7 +44,7 @@ const Destination = () => {
     );
   };
 
-  return (
+  return !globalDestination.loading ? (
     <div className="m-0 py-10 px-5 md:px-20 w-full min-h-screen">
       {(window as any).user.role === "admin" && tab === "List" && (
         <div className="px-0 md:px-5 w-full flex justify-end">
@@ -67,6 +67,10 @@ const Destination = () => {
           <List />
         </>
       )}
+    </div>
+  ) : (
+    <div className="w-full h-screen flex items-center justify-center">
+      <p>loading...</p>
     </div>
   );
 };

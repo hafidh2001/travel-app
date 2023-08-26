@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { configs } from "src/base/global/global";
+import { IconChevron } from "../ui/Icon";
 
 // components
 
@@ -40,11 +41,14 @@ export const NavDesktop: FC<{}> = ({}) => {
             Rating
           </span>
         </div>
-        <div className="py-1 h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group">
-          <div className="w-[45px] rounded-full box-border overflow-hidden">
-            <img src="/images/user.webp" alt="user" className="w-[45px]" />
+        <div className="py-1 px-8 h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group hover:bg-slate-200">
+          <div className="flex justify-center items-center space-x-4">
+            <div className="w-[45px] rounded-full box-border overflow-hidden">
+              <img src="/images/user.webp" alt="user" className="w-[45px]" />
+            </div>
+            <span>{(window as any).user.name}</span>
+            <IconChevron className="w-3 h-3 rotate-180 group-hover:rotate-0" />
           </div>
-          <span>{(window as any).user.name}</span>
           <div className="absolute top-[60px] right-0 w-[200px] hidden group-hover:block">
             <div className="mt-2 flex flex-col space-y-1">
               <button

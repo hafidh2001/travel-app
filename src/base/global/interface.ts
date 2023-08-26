@@ -30,3 +30,15 @@ export interface IUserById {
     roles: IRole[];
     updated_at: string;
 }
+
+export interface IDestination {
+    average_rating: number;
+    created_at: string;
+    created_by: number;
+    description: string;
+    id: number;
+    reviews?: any[];
+    thumbnail: string;
+    title: string;
+    updated_at: string;
+}

@@ -1,3 +1,4 @@
+import { DestinationProvider } from "../base/contex/DestinationContex";
 import { IRoutes } from "./interface";
 import { lazy } from "react";
 
@@ -21,7 +22,14 @@ const routes = [
     layout: <Default />,
     pages: [
       { path: "/", element: <Home /> },
-      { path: "/destination", element: <Destination /> },
+      {
+        path: "/destination",
+        element: (
+          <DestinationProvider>
+            <Destination />
+          </DestinationProvider>
+        ),
+      },
     ],
   },
   {

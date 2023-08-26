@@ -52,3 +52,18 @@ export const getUserById = (user_id: number, token: string) => {
         response(res, resolve, reject);
     });
 };
+
+// destination
+export const getAllDestination = () => {
+    return new Promise(async (resolve, reject) => {
+        const res = await axios.get(`${configs.url_backend}/api/destination`, {
+            headers: {
+                Authorization: `Bearer ${(window as any).user.token}`,
+            },
+            params: {
+                limit: 1000,
+            },
+        });
+        response(res, resolve, reject);
+    });
+};

@@ -124,7 +124,6 @@ export const NavMobile: FC<{}> = ({}) => {
               <span>Logout</span>
             </button>
           </div>
-          Ioim
         </div>
       </div>
     </div>

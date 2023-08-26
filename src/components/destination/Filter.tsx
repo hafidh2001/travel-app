@@ -64,56 +64,61 @@ export const Filter: FC<{}> = () => {
 
   return (
     <div className="w-full mb-2 md:px-5 flex justify-end">
-      <Form
-        onFinish={onSearch}
-        form={form}
-        layout="vertical"
-        initialValues={initialValues}
-        validateMessages={validateMessages}
-      >
-        <Row className="flex justify-end">
-          <Col span={6} className="mr-2">
-            <Form.Item name={"title"} rules={[]}>
-              <TextField placeholder={"search by title"} />
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item
-              name={"rating"}
-              rules={[
-                {
-                  pattern: /^[0-9]*$/,
-                  message: "allow only numeric field value",
-                },
-              ]}
+      <div className="mb-4 md:mb-0 w-full">
+        <Form
+          onFinish={onSearch}
+          form={form}
+          layout="vertical"
+          initialValues={initialValues}
+          validateMessages={validateMessages}
+        >
+          <Row className="md:flex md:justify-end">
+            <Col span={globalLayout.width < 768 ? 24 : 6} className="md:mr-2">
+              <Form.Item name={"title"} rules={[]}>
+                <TextField placeholder={"search by title"} />
+              </Form.Item>
+            </Col>
+            <Col span={globalLayout.width < 768 ? 24 : 6}>
+              <Form.Item
+                name={"rating"}
+                rules={[
+                  {
+                    pattern: /^[0-9]*$/,
+                    message: "allow only numeric field value",
+                  },
+                ]}
+              >
+                <TextField placeholder={"seach by rating"} />
+              </Form.Item>
+            </Col>
+            <Col
+              span={globalLayout.width < 768 ? 24 : 6}
+              className="md:ml-2 md:-mt-2 flex items-center space-x-2"
             >
-              <TextField placeholder={"seach by rating"} />
-            </Form.Item>
-          </Col>
-          <Col span={6} className="ml-2 -mt-2 flex items-center space-x-2">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                form.submit();
-              }}
-              className={`py-2 px-3 w-[200px] bg-blue-primary box-border rounded-xl cursor-pointer outline-none`}
-            >
-              <span className="text-white font-semibold">Submit</span>
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                form.setFieldValue("title", undefined);
-                form.setFieldValue("rating", undefined);
-                form.submit();
-              }}
-              className={`py-2 px-3 w-[200px] bg-gray-600 box-border rounded-xl cursor-pointer outline-none`}
-            >
-              <span className="text-white font-semibold">Reset</span>
-            </button>
-          </Col>
-        </Row>
-      </Form>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  form.submit();
+                }}
+                className={`py-2 px-3 w-[200px] bg-blue-primary box-border rounded-xl cursor-pointer outline-none`}
+              >
+                <span className="text-white font-semibold">Submit</span>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  form.setFieldValue("title", undefined);
+                  form.setFieldValue("rating", undefined);
+                  form.submit();
+                }}
+                className={`py-2 px-3 w-[200px] bg-gray-600 box-border rounded-xl cursor-pointer outline-none`}
+              >
+                <span className="text-white font-semibold">Reset</span>
+              </button>
+            </Col>
+          </Row>
+        </Form>
+      </div>
     </div>
   );
 };

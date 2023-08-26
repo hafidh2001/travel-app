@@ -130,12 +130,12 @@ export const List: FC<{
             <Row className="md:flex md:justify-end">
               <Col span={globalLayout.width < 768 ? 24 : 6} className="md:mr-2">
                 <Form.Item name={"name"} rules={[]}>
-                  <TextField placeholder={"search by name"} />
+                  <SearchField placeholder={"search by name"} />
                 </Form.Item>
               </Col>
               <Col span={globalLayout.width < 768 ? 24 : 6}>
                 <Form.Item name={"role"} rules={[]}>
-                  <TextField placeholder={"search by role"} />
+                  <SearchField placeholder={"search by role"} />
                 </Form.Item>
               </Col>
               <Col

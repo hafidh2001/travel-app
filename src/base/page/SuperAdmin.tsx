@@ -6,8 +6,7 @@ import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
 // components
 import { List } from "src/components/superadmin/ListUser";
 import { FormUser } from "src/components/superadmin/FormUser";
-import { getAllUser, getUserById } from "../../utils/ws";
-import { IUserById } from "../global/interface";
+import { getAllUser } from "src/utils/ws";
 
 const SuperAdmin = () => {
   const { globalSuperAdmin, setGlobalSuperAdmin } = contexSuperAdmin();
@@ -38,37 +37,10 @@ const SuperAdmin = () => {
     });
   };
 
-  const getDataUserById = async (prompt_id: number) => {
-    await axios
-      .post(
-        `${configs.url_backend}/api/prompt/byid`,
-        {
-          prompt_id,
-        }
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${(window as any).user.auth.access_token}`,
-        //   },
-        // }
-      )
-      .then((res: any) => {
-        if (!!res) {
-          setGlobalSuperAdmin({
-            ...globalSuperAdmin,
-            // dataSuperAdminById: res.data.data,
-          });
-        }
-      });
-  };
-
   return (
     <div className="py-10 px-5 md:px-20">
       {state === "List" ? (
-        <List
-          setState={setState}
-          getData={getData}
-          getDataUserById={getDataUserById}
-        />
+        <List setState={setState} getData={getData} />
       ) : state === "Add User" || state === "Edit User" ? (
         <FormUser state={state} setState={setState} getData={getData} />
       ) : (

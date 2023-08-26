@@ -65,7 +65,13 @@ export const List: FC<{}> = () => {
                         Number(item.label.split("=")) !==
                         globalDestination.current_page
                       )
-                        await onPagination(Number(item.label.split("=")));
+                        await onPagination(
+                          idx === 0
+                            ? globalDestination.current_page - 1
+                            : idx === arr.length - 1
+                            ? globalDestination.current_page + 1
+                            : Number(item.label.split("="))
+                        );
                     }}
                   >
                     <span className="text-gray-50 font-bold text-sm md:text-base">

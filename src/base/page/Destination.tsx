@@ -63,7 +63,7 @@ const Destination = () => {
         <FormDestination tab={tab} setTab={setTab} getData={init} />
       ) : (
         <>
-          {/* <Filter /> */}
+          <Filter />
           <List />
         </>
       )}

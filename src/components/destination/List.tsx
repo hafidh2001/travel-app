@@ -48,43 +48,45 @@ export const List: FC<{}> = () => {
               <Card key={idx} data={item} />
             ))}
           </div>
-          <div className="mt-5 w-full flex items-center justify-center space-x-2">
-            {globalDestination.pagination.map(
-              (item: IPagination, idx: number, arr: IPagination[]) =>
-                !!item.url && (
-                  <button
-                    key={idx}
-                    className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex justify-center items-center ${
-                      Number(item.label.split("=")) ===
-                      globalDestination.current_page
-                        ? "scale-110 bg-blue-primary"
-                        : "bg-gray-600"
-                    }`}
-                    onClick={async () => {
-                      if (
-                        Number(item.label.split("=")) !==
+          {globalDestination.pagination.length > 3 && (
+            <div className="mt-5 w-full flex items-center justify-center space-x-2">
+              {globalDestination.pagination.map(
+                (item: IPagination, idx: number, arr: IPagination[]) =>
+                  !!item.url && (
+                    <button
+                      key={idx}
+                      className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex justify-center items-center ${
+                        Number(item.label.split("=")) ===
                         globalDestination.current_page
-                      )
-                        await onPagination(
-                          idx === 0
-                            ? globalDestination.current_page - 1
-                            : idx === arr.length - 1
-                            ? globalDestination.current_page + 1
-                            : Number(item.label.split("="))
-                        );
-                    }}
-                  >
-                    <span className="text-gray-50 font-bold text-sm md:text-base">
-                      {idx === 0
-                        ? "<<"
-                        : idx === arr.length - 1
-                        ? ">>"
-                        : item.label}
-                    </span>
-                  </button>
-                )
-            )}
-          </div>
+                          ? "scale-110 bg-blue-primary"
+                          : "bg-gray-600"
+                      }`}
+                      onClick={async () => {
+                        if (
+                          Number(item.label.split("=")) !==
+                          globalDestination.current_page
+                        )
+                          await onPagination(
+                            idx === 0
+                              ? globalDestination.current_page - 1
+                              : idx === arr.length - 1
+                              ? globalDestination.current_page + 1
+                              : Number(item.label.split("="))
+                          );
+                      }}
+                    >
+                      <span className="text-gray-50 font-bold text-sm md:text-base">
+                        {idx === 0
+                          ? "<<"
+                          : idx === arr.length - 1
+                          ? ">>"
+                          : item.label}
+                      </span>
+                    </button>
+                  )
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

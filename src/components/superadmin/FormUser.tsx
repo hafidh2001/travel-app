@@ -42,31 +42,35 @@ export const FormUser: FC<{
   };
 
   const onAdd = async () => {
-    if (!!loadingSave) return;
-    setLoadingSave(true);
+    try {
+      if (!!loadingSave) return;
+      setLoadingSave(true);
 
-    const f = form.getFieldsValue();
-    await axios
-      .post(
-        `${configs.url_backend}/api/user/create`,
-        {
-          email: f.email,
-          name: f.name,
-          password: f.password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${(window as any).user.token}`,
+      const f = form.getFieldsValue();
+      await axios
+        .post(
+          `${configs.url_backend}/api/user/create`,
+          {
+            email: f.email,
+            name: f.name,
+            password: f.password,
           },
-        }
-      )
-      .then((res: any) => {
-        if (!!res) {
-          setLoadingSave(false);
-          getData();
-          setState("List");
-        }
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${(window as any).user.token}`,
+            },
+          }
+        )
+        .then((res: any) => {
+          if (!!res) {
+            getData();
+            setState("List");
+          }
+        });
+      setLoadingSave(false);
+    } catch {
+      setLoadingSave(false);
+    }
   };
 
   return (
@@ -108,7 +112,14 @@ export const FormUser: FC<{
               <Form.Item
                 label={"Password"}
                 name={"password"}
-                rules={[{ required: true }]}
+                rules={[
+                  { required: true },
+                  {
+                    min: 8,
+                    message:
+                      "The password field must be between 8 and 255 characters",
+                  },
+                ]}
               >
                 <PasswordField placeholder={"password"} />
               </Form.Item>

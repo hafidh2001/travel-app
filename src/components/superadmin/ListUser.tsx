@@ -17,6 +17,9 @@ import { ColumnsType } from "antd/es/table";
 import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
 import { IUserById } from "src/base/global/interface";
 import { contexLayout } from "src/base/contex/LayoutContext";
+import { deleteUser } from "../../utils/ws";
+import axios from "axios";
+import { configs } from "../../base/global/global";
 
 export const List: FC<{
   setState: (e: string) => void;
@@ -45,6 +48,20 @@ export const List: FC<{
     getData(f.name, f.role);
   };
 
+  const onDelete = async (id: number) => {
+    await axios
+      .delete(`${configs.url_backend}/api/user/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${(window as any).user.token}`,
+        },
+      })
+      .then((res: any) => {
+        if (!!res) {
+          getData();
+        }
+      });
+  };
+
   const [currentPage, setCurrentPage] = useState<number>(1); // Halaman saat ini
   const pageSize = 10; // Jumlah baris per halaman
 
@@ -61,7 +78,7 @@ export const List: FC<{
     {
       title: "No",
       key: "no",
-      width: 50,
+      width: 100,
       fixed: "left",
       render: (text, record, index) => (currentPage - 1) * pageSize + index + 1,
     },
@@ -69,7 +86,7 @@ export const List: FC<{
       title: "Name",
       dataIndex: "name",
       key: "name",
-      width: 100,
+      width: globalLayout.width < 768 ? 100 : "auto",
       fixed: "left",
     },
     {
@@ -80,28 +97,25 @@ export const List: FC<{
     {
       title: "Opsi",
       key: "id",
-      render: (_, { id }) => (
-        <div className="flex items-center space-x-3">
-          <button
-            className="p-2 bg-[#699af9] rounded-md cursor-pointer outline-none"
-            onClick={async () => {}}
-          >
-            <span>Assign Role</span>
-          </button>
-          <button
-            className="p-2 bg-[#f96969] rounded-md cursor-pointer outline-none"
-            onClick={() => {
-              setGlobalSuperAdmin({
-                ...globalSuperAdmin,
-                selected_userId: id,
-                popupDelete: true,
-              });
-            }}
-          >
-            <IconTrash className="w-4 h-4 text-[#840E0E]" />
-          </button>
-        </div>
-      ),
+      render: (_, { id }) =>
+        id !== 1 && (
+          <div className="flex items-center space-x-3">
+            <button
+              className="p-2 bg-[#699af9] rounded-md cursor-pointer outline-none"
+              onClick={async () => {}}
+            >
+              <span>Assign Role</span>
+            </button>
+            <button
+              className="p-2 bg-[#f96969] rounded-md cursor-pointer outline-none"
+              onClick={() => {
+                onDelete(id);
+              }}
+            >
+              <IconTrash className="w-4 h-4 text-[#840E0E]" />
+            </button>
+          </div>
+        ),
     },
   ];
 

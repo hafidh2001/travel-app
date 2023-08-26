@@ -41,7 +41,6 @@ export const logoutUser = async () => {
         });
 };
 
-
 // user
 export const getUserById = (user_id: number, token: string) => {
     return new Promise(async (resolve, reject) => {
@@ -65,6 +64,20 @@ export const getAllUser = (name?: string, role?: string) => {
                 role,
             },
         });
+        response(res, resolve, reject);
+    });
+};
+
+export const deleteUser = (id: number) => {
+    return new Promise(async (resolve, reject) => {
+        const res = await axios.delete(
+            `${configs.url_backend}/api/user/delete/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${(window as any).user.token}`,
+                },
+            }
+        );
         response(res, resolve, reject);
     });
 };

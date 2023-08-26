@@ -26,7 +26,6 @@ const SuperAdmin = () => {
     });
 
     await getAllUser(name, role).then((res: any) => {
-      console.log(res);
       if (!!res) {
         setGlobalSuperAdmin({
           ...globalSuperAdmin,

@@ -11,10 +11,8 @@ import { contexLayout } from "../../base/contex/LayoutContext";
 export const Filter: FC<{}> = () => {
   const { globalLayout, setGlobalLayout } = contexLayout();
   const { globalDestination, setGlobalDestination } = contexDestination();
+
   const [form] = useForm();
-  const validateMessages = {
-    required: "${label} wajib diisi",
-  };
 
   const initialValues = {
     title: "",
@@ -70,7 +68,6 @@ export const Filter: FC<{}> = () => {
           form={form}
           layout="vertical"
           initialValues={initialValues}
-          validateMessages={validateMessages}
         >
           <Row className="md:flex md:justify-end">
             <Col span={globalLayout.width < 768 ? 24 : 6} className="md:mr-2">
@@ -102,7 +99,7 @@ export const Filter: FC<{}> = () => {
                 }}
                 className={`py-2 px-3 w-[200px] bg-blue-primary box-border rounded-xl cursor-pointer outline-none`}
               >
-                <span className="text-white font-semibold">Submit</span>
+                <span className="text-white font-semibold">Search</span>
               </button>
               <button
                 onClick={(e) => {

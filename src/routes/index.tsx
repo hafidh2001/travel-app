@@ -1,4 +1,5 @@
 import { DestinationProvider } from "../base/contex/DestinationContex";
+import { SuperAdminProvider } from "../base/contex/SuperAdminContex";
 import { IRoutes } from "./interface";
 import { lazy } from "react";
 
@@ -33,7 +34,11 @@ const routes = [
     ],
   },
   {
-    layout: <SuperAdmin />,
+    layout: (
+      <SuperAdminProvider>
+        <SuperAdmin />
+      </SuperAdminProvider>
+    ),
     pages: [{ path: "/superadmin", element: <IndexSuperAdmin /> }],
   },
   {

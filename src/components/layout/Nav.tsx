@@ -25,23 +25,25 @@ export const NavDesktop: FC<{}> = ({}) => {
         <span className="font-Montserrat text-xl font-bold">Travel App</span>
       </div>
       <div className="h-full flex items-center space-x-14 text-base font-medium text-black">
-        <div className="flex items-center space-x-6">
-          {menu.map((item: { title: string; href: string }, idx: number) => (
-            <span
-              key={idx}
-              className={`cursor-pointer outline-none scale-110 ${
-                window.location.pathname === item.href
-                  ? "scale-110 text-[#4336ff] font-semibold"
-                  : ""
-              }`}
-              onClick={() => {
-                window.location.href = item.href;
-              }}
-            >
-              {item.title}
-            </span>
-          ))}
-        </div>
+        {(window as any).user.role !== "superadmin" && (
+          <div className="flex items-center space-x-6">
+            {menu.map((item: { title: string; href: string }, idx: number) => (
+              <span
+                key={idx}
+                className={`cursor-pointer outline-none scale-110 ${
+                  window.location.pathname === item.href
+                    ? "scale-110 text-[#4336ff] font-semibold"
+                    : ""
+                }`}
+                onClick={() => {
+                  window.location.href = item.href;
+                }}
+              >
+                {item.title}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group">
           <div className="flex justify-center items-center space-x-4">
             <div className="w-[45px] rounded-full box-border overflow-hidden">
@@ -102,14 +104,18 @@ export const NavMobile: FC<{}> = ({}) => {
           }`}
         >
           <div className="mt-2 flex flex-col space-y-1">
-            <button
-              className="px-5 py-2 bg-white shadow-xl rounded-lg hover:bg-slate-200"
-              onClick={() => {
-                window.location.href = "/profile";
-              }}
-            >
-              <span>Profile</span>
-            </button>
+            {(window as any).user.role !== "superadmin" &&
+              menu.map((item: { title: string; href: string }, idx: number) => (
+                <button
+                  key={idx}
+                  className="px-5 py-2 bg-white shadow-xl rounded-lg hover:bg-slate-200"
+                  onClick={() => {
+                    window.location.href = item.href;
+                  }}
+                >
+                  <span>{item.title}</span>
+                </button>
+              ))}
 
             <button
               className="px-5 py-2 bg-white shadow-xl rounded-lg hover:bg-slate-200"

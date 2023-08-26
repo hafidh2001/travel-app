@@ -41,7 +41,7 @@ export const NavDesktop: FC<{}> = ({}) => {
             Rating
           </span>
         </div>
-        <div className="py-1 px-8 h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group hover:bg-slate-200">
+        <div className="h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group">
           <div className="flex justify-center items-center space-x-4">
             <div className="w-[45px] rounded-full box-border overflow-hidden">
               <img src="/images/user.webp" alt="user" className="w-[45px]" />

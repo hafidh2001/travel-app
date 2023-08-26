@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { contexLayout } from "src/base/contex/LayoutContext";
 import { contexDestination } from "src/base/contex/DestinationContex";
 import { getAllDestination } from "src/utils/ws";
@@ -7,10 +7,13 @@ import { getAllDestination } from "src/utils/ws";
 import { Filter } from "src/components/destination/Filter";
 import { List } from "src/components/destination/List";
 import { IconPlus } from "src/components/ui/Icon";
+import { FormDestination } from "../../components/admin/FormDestination";
 
 const Destination = () => {
   const { globalLayout } = contexLayout();
   const { globalDestination, setGlobalDestination } = contexDestination();
+
+  const [tab, setTab] = useState<string>("List");
 
   useEffect(() => {
     document.title = "Destination - Travel App";
@@ -44,14 +47,27 @@ const Destination = () => {
 
   return (
     <div className="m-0 py-10 px-5 md:px-20 w-full min-h-screen">
-      <div className="px-0 md:px-5 w-full flex justify-end">
-        <button className="px-4 py-2 flex items-center space-x-2 bg-green-600 rounded-lg text-white text-sm font-bold hover:bg-green-700">
-          <IconPlus className="w-4 h-4 md:w-5 md:h-5" />
-          <span>Add Destination</span>
-        </button>
-      </div>
-      {/* <Filter /> */}
-      <List />
+      {(window as any).user.role === "admin" && tab === "List" && (
+        <div className="px-0 md:px-5 w-full flex justify-end">
+          <button
+            className="px-4 py-2 flex items-center space-x-2 bg-green-600 rounded-lg text-white text-sm font-bold hover:bg-green-700"
+            onClick={() => {
+              setTab("Add Destination");
+            }}
+          >
+            <IconPlus className="w-4 h-4 md:w-5 md:h-5" />
+            <span>Add Destination</span>
+          </button>
+        </div>
+      )}
+      {tab === "Add Destination" || tab === "Update Destination" ? (
+        <FormDestination tab={tab} setTab={setTab} getData={init} />
+      ) : (
+        <>
+          {/* <Filter /> */}
+          <List />
+        </>
+      )}
     </div>
   );
 };

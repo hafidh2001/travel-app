@@ -65,7 +65,11 @@ export const List: FC<{}> = () => {
                     }}
                   >
                     <span className="text-gray-50 font-bold">
-                      {idx === 0 ? "<<" : idx === 3 ? ">>" : item.label}
+                      {idx === 0
+                        ? "<<"
+                        : idx === arr.length - 1
+                        ? ">>"
+                        : item.label}
                     </span>
                   </button>
                 )

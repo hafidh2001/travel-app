@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import moment from "moment";
 import { configs } from "../base/global/global";
 
 const response = (
@@ -54,7 +53,10 @@ export const getUserById = (user_id: number, token: string) => {
 };
 
 // destination
-export const getAllDestination = (limit = 10, page?: number) => {
+export const getAllDestination = (
+    limit = window.innerWidth < 768 ? 5 : 10,
+    page?: number
+) => {
     return new Promise(async (resolve, reject) => {
         const res = await axios.get(`${configs.url_backend}/api/destination`, {
             headers: {

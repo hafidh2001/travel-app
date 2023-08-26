@@ -9,6 +9,8 @@ import {
   useSizeWindow,
 } from "src/base/global/global";
 import { Skeleton } from "antd";
+import { NavDesktop, NavMobile } from "src/components/layout/Nav";
+import { Footer } from "src/components/layout/Footer";
 
 const SuperAdmin = () => {
   const [loading, setLoading] = useState(false);
@@ -31,46 +33,43 @@ const SuperAdmin = () => {
     return <></>;
   }
 
-  // template
-  // if (!!w.user) {
-  //   if (
-  //     w.user.role === "superadmin" &&
-  //     globalLayout.role_superadmin.findIndex(
-  //       (e) => window.location.pathname.search(e) >= 0
-  //     ) < 0
-  //   ) {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/competence`;
-  //     }, 100);
-  //     return <></>;
-  //   }
+  if (!!w.user) {
+    if (
+      w.user.role === "superadmin" &&
+      globalLayout.role_superadmin.findIndex(
+        (e) => window.location.pathname.search(e) >= 0
+      ) < 0
+    ) {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/superadmin`;
+      }, 100);
+      return <></>;
+    }
 
-  //   if (
-  //     w.user.role === "administrator" &&
-  //     globalLayout.role_administrator.findIndex(
-  //       (e) => window.location.pathname.search(e) >= 0
-  //     ) < 0
-  //   ) {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/participant`;
-  //     }, 100);
-  //     return <></>;
-  //   }
+    if (
+      w.user.role === "admin" &&
+      globalLayout.role_admin.findIndex(
+        (e) => window.location.pathname.search(e) >= 0
+      ) < 0
+    ) {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/destination`;
+      }, 100);
+      return <></>;
+    }
 
-  //   if (
-  //     w.user.role === "user" &&
-  //     globalLayout.role_user.findIndex(
-  //       (e) => window.location.pathname.search(e) >= 0
-  //     ) < 0 &&
-  //     window.location.pathname !== "/"
-  //   ) {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/`;
-  //     }, 100);
-  //     return <></>;
-  //   }
-  // }
-  // template
+    if (
+      w.user.role === "user" &&
+      globalLayout.role_user.findIndex(
+        (e) => window.location.pathname.search(e) >= 0
+      ) < 0
+    ) {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/destination`;
+      }, 100);
+      return <></>;
+    }
+  }
 
   if (loading)
     return (
@@ -83,14 +82,15 @@ const SuperAdmin = () => {
 
   return (
     <div className={`w-full flex flex-col overflow-x-clip`}>
+      {globalLayout.width < 768 ? <NavMobile /> : <NavDesktop />}
       <div
         className="w-full min-h-screen"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <p>SuperAdmin</p>
         <Outlet />
+        <Footer />
       </div>
     </div>
   );

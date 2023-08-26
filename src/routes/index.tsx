@@ -15,7 +15,7 @@ const Home = lazy(() => import("src/base/page/Home"));
 const Destination = lazy(() => import("src/base/page/Destination"));
 
 // page superadmin
-const IndexSuperAdmin = lazy(() => import("src/base/page/superadmin/Index"));
+const IndexSuperAdmin = lazy(() => import("src/base/page/SuperAdmin"));
 
 const routes = [
   {

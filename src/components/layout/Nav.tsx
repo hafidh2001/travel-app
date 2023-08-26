@@ -2,6 +2,7 @@ import { FC } from "react";
 import { configs } from "src/base/global/global";
 import { IconChevron } from "../ui/Icon";
 import { contexLayout } from "../../base/contex/LayoutContext";
+import { menu } from "../../utils/global/menu";
 
 // components
 
@@ -25,22 +26,21 @@ export const NavDesktop: FC<{}> = ({}) => {
       </div>
       <div className="h-full flex items-center space-x-14 text-base font-medium text-black">
         <div className="flex items-center space-x-6">
-          <span
-            className={`cursor-pointer outline-none scale-110 ${
-              window.location.pathname === "/destination"
-                ? "scale-110 text-[#4336ff] font-semibold"
-                : ""
-            }`}
-            onClick={() => {}}
-          >
-            Destination
-          </span>
-          <span
-            className={`cursor-pointer outline-none scale-110 `}
-            onClick={() => {}}
-          >
-            Rating
-          </span>
+          {menu.map((item: { title: string; href: string }, idx: number) => (
+            <span
+              key={idx}
+              className={`cursor-pointer outline-none scale-110 ${
+                window.location.pathname === item.href
+                  ? "scale-110 text-[#4336ff] font-semibold"
+                  : ""
+              }`}
+              onClick={() => {
+                window.location.href = item.href;
+              }}
+            >
+              {item.title}
+            </span>
+          ))}
         </div>
         <div className="h-full flex justify-center items-center space-x-4 cursor-pointer outline-none relative group">
           <div className="flex justify-center items-center space-x-4">
@@ -52,13 +52,6 @@ export const NavDesktop: FC<{}> = ({}) => {
           </div>
           <div className="absolute top-[60px] right-0 w-[200px] hidden group-hover:block">
             <div className="mt-2 flex flex-col space-y-1">
-              <button
-                className="px-5 py-2 bg-white shadow-xl rounded-lg hover:bg-slate-200"
-                onClick={() => {}}
-              >
-                <span>Profile</span>
-              </button>
-
               <button
                 className="px-5 py-2 bg-white shadow-xl rounded-lg hover:bg-slate-200"
                 onClick={logout}

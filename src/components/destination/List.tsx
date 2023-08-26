@@ -11,7 +11,7 @@ export const List: FC<{}> = () => {
   list = globalDestination.list;
 
   return (
-    <div className="w-full md:w-4/5 md:p-5">
+    <div className="w-full md:p-5">
       {!!globalDestination.loading ? (
         <div className="flex items-center justify-center">loading ...</div>
       ) : (
@@ -20,7 +20,7 @@ export const List: FC<{}> = () => {
             {globalDestination.list.length} destination found
           </p>
           {/* {JSON.stringify(globalDestination.list)} */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-y-7 gap-x-0 md:gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-y-7 gap-x-0 md:gap-x-10">
             {list.map((item: any, idx: number) => (
               <Card key={idx} data={item} />
             ))}

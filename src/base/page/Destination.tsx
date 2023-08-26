@@ -37,10 +37,8 @@ const Destination = () => {
 
   return (
     <div className="m-0 py-10 px-5 md:px-20 w-full min-h-screen">
-      <div className="w-full flex flex-col md:flex-row">
-        <Filter />
-        <List />
-      </div>
+      <Filter />
+      <List />
     </div>
   );
 };

@@ -9,20 +9,19 @@ import {
 } from "src/components/ui/Icon";
 
 import { Form, Row, Col } from "antd";
-import { SearchField, TextField } from "src/components/ui/FieldForm";
+import { SearchField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 
 import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
-import { IUserById } from "../../base/global/interface";
-import { contexLayout } from "../../base/contex/LayoutContext";
+import { IUserById } from "src/base/global/interface";
+import { contexLayout } from "src/base/contex/LayoutContext";
 
 export const List: FC<{
   setState: (e: string) => void;
   getData: (name?: string, role?: string) => Promise<void>;
-  getDataUserById: (e: number) => Promise<void>;
-}> = ({ setState, getData, getDataUserById }) => {
+}> = ({ setState, getData }) => {
   const { globalLayout } = contexLayout();
   const { globalSuperAdmin, setGlobalSuperAdmin } = contexSuperAdmin();
 
@@ -62,12 +61,16 @@ export const List: FC<{
     {
       title: "No",
       key: "no",
+      width: 50,
+      fixed: "left",
       render: (text, record, index) => (currentPage - 1) * pageSize + index + 1,
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 100,
+      fixed: "left",
     },
     {
       title: "Email",
@@ -81,12 +84,9 @@ export const List: FC<{
         <div className="flex items-center space-x-3">
           <button
             className="p-2 bg-[#699af9] rounded-md cursor-pointer outline-none"
-            onClick={async () => {
-              await getDataUserById(id);
-              setState("Edit Prompt");
-            }}
+            onClick={async () => {}}
           >
-            <IconEdit className="w-4 h-4 text-[#0F3173]" />
+            <span>Assign Role</span>
           </button>
           <button
             className="p-2 bg-[#f96969] rounded-md cursor-pointer outline-none"
@@ -120,7 +120,7 @@ export const List: FC<{
         </button>
       </div>
       <div className="flex justify-end">
-        <div className="w-[50%]">
+        <div className="w-full md:w-[50%] box-border overflow-x-auto">
           <Form
             onFinish={onSearch}
             form={form}
@@ -174,6 +174,7 @@ export const List: FC<{
           dataSource={globalSuperAdmin.listUser}
           loading={globalSuperAdmin.loadingListUser}
           pagination={tablePagination}
+          scroll={{ x: 1000 }}
         />
       </div>
     </>

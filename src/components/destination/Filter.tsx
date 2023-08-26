@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 
 // components
 import { Form, Row, Col } from "antd";
-import { TextField, TextAreaField } from "src/components/ui/FieldForm";
+import { SearchField } from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 import { contexDestination } from "../../base/contex/DestinationContex";
 import { getAllDestination } from "../../utils/ws";
@@ -72,7 +72,7 @@ export const Filter: FC<{}> = () => {
           <Row className="md:flex md:justify-end">
             <Col span={globalLayout.width < 768 ? 24 : 6} className="md:mr-2">
               <Form.Item name={"title"} rules={[]}>
-                <TextField placeholder={"search by title"} />
+                <SearchField placeholder={"search by title"} />
               </Form.Item>
             </Col>
             <Col span={globalLayout.width < 768 ? 24 : 6}>
@@ -85,7 +85,7 @@ export const Filter: FC<{}> = () => {
                   },
                 ]}
               >
-                <TextField placeholder={"seach by rating"} />
+                <SearchField placeholder={"seach by rating"} />
               </Form.Item>
             </Col>
             <Col

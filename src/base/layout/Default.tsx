@@ -87,7 +87,7 @@ const Default = () => {
     <div className={`w-full flex flex-col overflow-x-clip`}>
       {globalLayout.width < 768 ? <NavMobile /> : <NavDesktop />}
       <div
-        className="w-full min-h-screen bg-[url('/public/images/bg.webp')] bg-cover bg-center bg-no-repeat"
+        className="w-full min-h-screen bg-[url('/images/bg.webp')] bg-cover bg-center bg-no-repeat"
         onClick={(e) => {
           e.stopPropagation();
         }}

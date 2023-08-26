@@ -30,7 +30,6 @@ const Destination = () => {
 
     await getAllDestination(globalLayout.width < 768 ? 5 : 10).then(
       (res: any) => {
-        console.log(res);
         if (!!res) {
           setGlobalDestination({
             ...globalDestination,

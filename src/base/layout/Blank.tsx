@@ -25,36 +25,18 @@ const Blank = () => {
   w.user = user;
 
   if (!!w.user) {
-    setTimeout(() => {
-      window.location.href = `${window.location.origin}/`;
-    }, 100);
-    return <></>;
+    if (w.user.role === "superadmin") {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/superadmin`;
+      }, 100);
+      return <></>;
+    } else {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/destination`;
+      }, 100);
+      return <></>;
+    }
   }
-
-  // tmeplate
-  // if (!!w.user) {
-  //   if (w.user.role === "superadmin") {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/competence`;
-  //     }, 100);
-  //     return <></>;
-  //   }
-
-  //   if (w.user.role === "administrator") {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/participant`;
-  //     }, 100);
-  //     return <></>;
-  //   }
-
-  //   if (w.user.role === "user") {
-  //     setTimeout(() => {
-  //       window.location.href = `${window.location.origin}/`;
-  //     }, 100);
-  //     return <></>;
-  //   }
-  // }
-  // tmeplate
 
   if (loading)
     return (

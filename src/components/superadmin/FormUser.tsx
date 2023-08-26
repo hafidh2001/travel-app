@@ -2,27 +2,29 @@ import { FC, useEffect, useState } from "react";
 
 // components
 import { Form, Row, Col } from "antd";
-import { TextField, TextAreaField } from "src/components/ui/FieldForm";
+import {
+  TextField,
+  TextAreaField,
+  PasswordField,
+} from "src/components/ui/FieldForm";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { configs } from "src/base/global/global";
-import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
 
 export const FormUser: FC<{
   state: string;
   setState: (e: string) => void;
   getData: () => Promise<void>;
 }> = ({ state, setState, getData }) => {
-  const { globalSuperAdmin, setGlobalSuperAdmin } = contexSuperAdmin();
-
   const [form] = useForm();
   const validateMessages = {
     required: "${label} wajib diisi",
   };
   const initialValues = {
-    user_type: "",
-    user_content: "",
-  } as { [key: string]: string | [] | {} };
+    email: "",
+    name: "",
+    password: "",
+  } as { [key: string]: string };
 
   const [loadingSave, setLoadingSave] = useState<boolean>(false);
 
@@ -32,21 +34,11 @@ export const FormUser: FC<{
   }, []);
 
   const assignFormValue = () => {
-    if (!!Object.keys(globalSuperAdmin.dataUserById)) {
-      Object.keys(initialValues).forEach((key: string) => {
-        form.setFieldValue(
-          key,
-          (globalSuperAdmin.dataUserById as any)[key.toLowerCase()]
-        );
-      });
-      // re-assign value form
-    } else {
-      // set initial value form
-      Object.keys(initialValues).forEach((key: string) => {
-        form.setFieldValue(key, undefined);
-      });
-      // re-assign value form
-    }
+    // set initial value form
+    Object.keys(initialValues).forEach((key: string) => {
+      form.setFieldValue(key, undefined);
+    });
+    // re-assign value form
   };
 
   const onAdd = async () => {
@@ -56,41 +48,15 @@ export const FormUser: FC<{
     const f = form.getFieldsValue();
     await axios
       .post(
-        `${configs.url_backend}/api/user/adduser`,
+        `${configs.url_backend}/api/user/create`,
         {
-          user_type: f.user_type,
-          user_content: f.user_content,
+          email: f.email,
+          name: f.name,
+          password: f.password,
         },
         {
           headers: {
-            Authorization: `Bearer ${(window as any).user.auth.access_token}`,
-          },
-        }
-      )
-      .then((res: any) => {
-        if (!!res) {
-          setLoadingSave(false);
-          getData();
-          setState("List");
-        }
-      });
-  };
-
-  const onUpdate = async () => {
-    if (!!loadingSave) return;
-    setLoadingSave(true);
-
-    const f = form.getFieldsValue();
-    await axios
-      .post(
-        `${configs.url_backend}/api/user/${globalSuperAdmin.dataUserById.id}`,
-        {
-          user_type: f.user_type,
-          user_content: f.user_content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${(window as any).user.auth.access_token}`,
+            Authorization: `Bearer ${(window as any).user.token}`,
           },
         }
       )
@@ -110,7 +76,7 @@ export const FormUser: FC<{
       </div>
       <div className="mt-3">
         <Form
-          onFinish={state.includes("Add") ? onAdd : onUpdate}
+          onFinish={onAdd}
           form={form}
           layout="vertical"
           initialValues={initialValues}
@@ -119,25 +85,32 @@ export const FormUser: FC<{
           <Row>
             <Col span={24} className="px-2">
               <Form.Item
-                label={"User Type"}
-                name={"user_type"}
-                rules={[{ required: true }]}
+                label={"Email"}
+                name={"email"}
+                rules={[
+                  { required: true },
+                  {
+                    type: "email",
+                    pattern: /^\S+@\S+\.\S+$/,
+                    message: "format : youremail@example.com",
+                  },
+                ]}
               >
-                <TextField
-                  placeholder={"user type"}
-                  disabled={state.includes("View")}
-                />
+                <TextField placeholder={"email"} />
               </Form.Item>
-
               <Form.Item
-                label={"User"}
-                name={"user_content"}
+                label={"Name"}
+                name={"name"}
                 rules={[{ required: true }]}
               >
-                <TextAreaField
-                  placeholder={"user"}
-                  disabled={state.includes("View")}
-                />
+                <TextField placeholder={"name"} />
+              </Form.Item>
+              <Form.Item
+                label={"Password"}
+                name={"password"}
+                rules={[{ required: true }]}
+              >
+                <PasswordField placeholder={"password"} />
               </Form.Item>
             </Col>
           </Row>

@@ -90,8 +90,8 @@ const SuperAdmin = () => {
         }}
       >
         <Outlet />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

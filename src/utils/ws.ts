@@ -41,6 +41,8 @@ export const logoutUser = async () => {
         });
 };
 
+
+// user
 export const getUserById = (user_id: number, token: string) => {
     return new Promise(async (resolve, reject) => {
         const res = await axios.get(`${configs.url_backend}/api/user/${user_id}`, {

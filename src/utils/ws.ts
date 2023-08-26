@@ -54,14 +54,15 @@ export const getUserById = (user_id: number, token: string) => {
 };
 
 // destination
-export const getAllDestination = () => {
+export const getAllDestination = (limit = 10, page?: number) => {
     return new Promise(async (resolve, reject) => {
         const res = await axios.get(`${configs.url_backend}/api/destination`, {
             headers: {
                 Authorization: `Bearer ${(window as any).user.token}`,
             },
             params: {
-                limit: 1000,
+                limit: limit,
+                page: page,
             },
         });
         response(res, resolve, reject);

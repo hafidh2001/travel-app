@@ -31,7 +31,7 @@ export interface IUserById {
     updated_at: string;
 }
 
-export interface IDestination {
+export interface IDataDestination {
     average_rating: number;
     created_at: string;
     created_by: number;
@@ -41,4 +41,10 @@ export interface IDestination {
     thumbnail: string;
     title: string;
     updated_at: string;
+}
+
+export interface IPagination {
+    active: boolean;
+    label: string;
+    url?: string;
 }

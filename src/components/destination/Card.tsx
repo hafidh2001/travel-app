@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { IDestination } from "src/base/global/interface";
+import { IDataDestination } from "src/base/global/interface";
 
 export const Card: FC<{
-  data: IDestination;
+  data: IDataDestination;
 }> = ({ data }) => {
   const { id, title, thumbnail, description, average_rating, reviews } = data;
 

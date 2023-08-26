@@ -5,6 +5,7 @@ import { getAllDestination } from "src/utils/ws";
 // components
 import { Filter } from "src/components/destination/Filter";
 import { List } from "src/components/destination/List";
+import { IDataDestination } from "../global/interface";
 
 const Destination = () => {
   const { globalDestination, setGlobalDestination } = contexDestination();
@@ -16,23 +17,25 @@ const Destination = () => {
   }, []);
 
   const init = async () => {
-    if (globalDestination.list.length === 0) {
-      if (!!globalDestination.loading) return;
-      setGlobalDestination({
-        ...globalDestination,
-        loading: true,
-      });
+    if (!!globalDestination.loading) return;
+    setGlobalDestination({
+      ...globalDestination,
+      loading: true,
+    });
 
-      await getAllDestination().then((res: any) => {
-        if (!!res) {
-          setGlobalDestination({
-            ...globalDestination,
-            list: res.data,
-            loading: false,
-          });
-        }
-      });
-    }
+    await getAllDestination().then((res: any) => {
+      console.log(res);
+      if (!!res) {
+        setGlobalDestination({
+          ...globalDestination,
+          list: res.data,
+          list_total: res.total,
+          pagination: res.links,
+          current_page: res.current_page,
+          loading: false,
+        });
+      }
+    });
   };
 
   return (

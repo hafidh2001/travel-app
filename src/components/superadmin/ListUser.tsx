@@ -17,7 +17,7 @@ import { ColumnsType } from "antd/es/table";
 import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
 import { IUserById } from "src/base/global/interface";
 import { contexLayout } from "src/base/contex/LayoutContext";
-import { deleteUser } from "../../utils/ws";
+import { deleteUser, getUserById } from "../../utils/ws";
 import axios from "axios";
 import { configs } from "../../base/global/global";
 
@@ -27,6 +27,7 @@ export const List: FC<{
 }> = ({ setState, getData }) => {
   const { globalLayout } = contexLayout();
   const { globalSuperAdmin, setGlobalSuperAdmin } = contexSuperAdmin();
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
 
   useEffect(() => {
     setState("List");
@@ -102,7 +103,14 @@ export const List: FC<{
           <div className="flex items-center space-x-3">
             <button
               className="p-2 bg-[#699af9] rounded-md cursor-pointer outline-none"
-              onClick={async () => {}}
+              onClick={async () => {
+                const user = await getUserById(id, (window as any).user.token);
+                setGlobalSuperAdmin({
+                  ...globalSuperAdmin,
+                  dataUserById: user,
+                  popup: true,
+                });
+              }}
             >
               <span>Assign Role</span>
             </button>

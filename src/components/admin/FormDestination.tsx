@@ -77,10 +77,7 @@ export const FormDestination: FC<{
       )
       .then((res: any) => {
         if (!!res) {
-          console.log(res);
           setLoadingSave(false);
-          //   getData();
-          //   setTab("List");
         }
       });
   };
@@ -158,8 +155,6 @@ export const FormDestination: FC<{
                     return false;
                   }}
                   onChange={({ file, fileList }: any) => {
-                    console.log("file", file);
-                    console.log("fileList", fileList);
                     if (file.status !== "removed") {
                       const isJpgOrPng =
                         file.type === "image/jpeg" || file.type === "image/png";

@@ -7,6 +7,7 @@ import { contexSuperAdmin } from "src/base/contex/SuperAdminContex";
 import { List } from "src/components/superadmin/ListUser";
 import { FormUser } from "src/components/superadmin/FormUser";
 import { getAllUser } from "src/utils/ws";
+import { PopupAssignRole } from "../../components/ui/PopupAssignRole";
 
 const SuperAdmin = () => {
   const { globalSuperAdmin, setGlobalSuperAdmin } = contexSuperAdmin();
@@ -37,15 +38,18 @@ const SuperAdmin = () => {
   };
 
   return (
-    <div className="py-10 px-5 md:px-20">
-      {state === "List" ? (
-        <List setState={setState} getData={getData} />
-      ) : state === "Add User" || state === "Edit User" ? (
-        <FormUser state={state} setState={setState} getData={getData} />
-      ) : (
-        <></>
-      )}
-    </div>
+    <>
+      {!!globalSuperAdmin.popup && <PopupAssignRole />}
+      <div className="py-10 px-5 md:px-20">
+        {state === "List" ? (
+          <List setState={setState} getData={getData} />
+        ) : state === "Add User" || state === "Edit User" ? (
+          <FormUser state={state} setState={setState} getData={getData} />
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
   );
 };
 

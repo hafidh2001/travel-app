@@ -84,7 +84,7 @@ const Default = () => {
     <div className={`w-full flex flex-col overflow-x-clip`}>
       {globalLayout.width < 768 ? <NavMobile /> : <NavDesktop />}
       <div
-        className="w-full min-h-screen bg-red-200"
+        className="w-full min-h-screen"
         onClick={(e) => {
           e.stopPropagation();
           setGlobalLayout({
